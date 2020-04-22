@@ -1,0 +1,11 @@
+.li {
+    font-size: 20px;
+    font-weight: 700;
+    position: relative;
+    left: -15px;
+    letter-spacing: .5px;
+    line-height: 1.5;
+    z-index: 9999;
+    overflow: hidden;
+    list-style-type: none;
+}
