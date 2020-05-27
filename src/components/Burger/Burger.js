@@ -1,35 +1,29 @@
-import React from 'react'
+import React from 'react';
 
-import styles from './Burger.module.css'
-import BurgerIng from './BurgerIng/BurgerIng'
+import classes from './Burger.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
-const burger = (props) => {
-    // 類似陣列的物件 Object.keys
-    /* 
-    var obj = { 0: 'a', 1: 'b', 2: 'c' };
-    console.log(Object.keys(obj)); // console: ['0', '1', '2']
-    */
-   let transformedIngredients = [];
- 
-    for (let key in props.ingredients) {
-        for (let i = 0; i < props.ingredients[key]; i++) {
-            transformedIngredients.push(<BurgerIng key={key + i} type={key} />);
-        }
-    }
-
+const burger = ( props ) => {
+    console.log(props);
+    let transformedIngredients = Object.keys( props.ingredients )
+        .map( igKey => {
+            return [...Array( props.ingredients[igKey] )].map( ( _, i ) => {
+                return <BurgerIngredient key={igKey + i} type={igKey} />;
+            } );
+        } )
+        .reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
     if (transformedIngredients.length === 0) {
-        transformedIngredients = <p>Adding Ingredients to Build a Burger</p>
+        transformedIngredients = <p>Please start adding ingredients!</p>;
     }
-    // console.log(transformedIngredients)
-    // console.log(props.ingredients["salad"])
-
     return (
-        <div className={styles.burger}>
-            <BurgerIng type="bread-top"></BurgerIng>
+        <div className={classes.Burger}>
+            <BurgerIngredient type="bread-top" />
             {transformedIngredients}
-            <BurgerIng type="bread-bottom"></BurgerIng>
+            <BurgerIngredient type="bread-bottom" />
         </div>
-    )
-}
+    );
+};
 
-export default burger
+export default burger;
